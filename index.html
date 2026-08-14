@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>QuickInvoice — Create Professional Invoices in Minutes</title>
+<meta name="description" content="QuickInvoice lets freelancers and small businesses create, preview, print and download professional invoices in minutes.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="app-header no-print">
+    <div class="app-header__inner">
+      <div class="brand">
+        <div class="brand__mark">QI</div>
+        <div class="brand__text">
+          <span class="brand__name">QuickInvoice</span>
+          <span class="brand__tagline">Create professional invoices in minutes.</span>
+        </div>
+      </div>
+      <div class="app-header__actions">
+        <button type="button" class="btn btn--ghost" id="newInvoiceBtn">New Invoice</button>
+        <button type="button" class="btn btn--ghost" id="clearInvoiceBtn">Clear Invoice</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== MAIN LAYOUT ===================== -->
+  <main class="app-layout">
+
+    <!-- ---------- FORM PANEL ---------- -->
+    <section class="form-panel no-print" aria-label="Invoice form">
+
+      <!-- Business Information -->
+      <div class="card">
+        <h2 class="card__title">Business Information</h2>
+
+        <div class="logo-upload">
+          <div class="logo-upload__preview" id="logoPreviewWrap">
+            <img id="logoPreview" alt="Business logo preview" class="hidden">
+            <span id="logoPlaceholder">No logo</span>
+          </div>
+          <div class="logo-upload__controls">
+            <label class="btn btn--secondary btn--small" for="logoInput">Upload Logo</label>
+            <input type="file" id="logoInput" accept="image/png, image/jpeg, image/webp" class="hidden">
+            <button type="button" class="btn btn--text btn--small" id="removeLogoBtn">Remove</button>
+            <p class="field-hint">PNG or JPG, up to 2MB.</p>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="bizName">Business Name</label>
+          <input type="text" id="bizName" placeholder="e.g. Bright Design Studio" maxlength="120">
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="bizEmail">Business Email</label>
+            <input type="email" id="bizEmail" placeholder="hello@yourbusiness.com" maxlength="120">
+            <span class="field-error" id="bizEmailError"></span>
+          </div>
+          <div class="field">
+            <label for="bizPhone">Business Phone</label>
+            <input type="tel" id="bizPhone" placeholder="+234 800 000 0000" maxlength="40">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="bizAddress">Business Address</label>
+          <textarea id="bizAddress" rows="2" placeholder="Street, City, State, Country" maxlength="300"></textarea>
+        </div>
+
+        <div class="field">
+          <label for="bizWebsite">Business Website</label>
+          <input type="url" id="bizWebsite" placeholder="https://yourbusiness.com" maxlength="150">
+        </div>
+      </div>
+
+      <!-- Customer Information -->
+      <div class="card">
+        <h2 class="card__title">Customer Information</h2>
+
+        <div class="field">
+          <label for="custName">Client / Customer Name</label>
+          <input type="text" id="custName" placeholder="e.g. Jane Doe" maxlength="120">
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="custEmail">Customer Email</label>
+            <input type="email" id="custEmail" placeholder="client@email.com" maxlength="120">
+            <span class="field-error" id="custEmailError"></span>
+          </div>
+          <div class="field">
+            <label for="custPhone">Customer Phone</label>
+            <input type="tel" id="custPhone" placeholder="+234 800 000 0000" maxlength="40">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="custAddress">Customer Address</label>
+          <textarea id="custAddress" rows="2" placeholder="Street, City, State, Country" maxlength="300"></textarea>
+        </div>
+      </div>
+
+      <!-- Invoice Details -->
+      <div class="card">
+        <h2 class="card__title">Invoice Details</h2>
+
+        <div class="field">
+          <label for="invNumber">Invoice Number</label>
+          <input type="text" id="invNumber" placeholder="INV-202608-001" maxlength="40">
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="invDate">Invoice Date</label>
+            <input type="date" id="invDate">
+          </div>
+          <div class="field">
+            <label for="invDueDate">Due Date</label>
+            <input type="date" id="invDueDate">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="invCurrency">Currency</label>
+          <select id="invCurrency">
+            <option value="NGN">NGN — Nigerian Naira</option>
+            <option value="USD">USD — US Dollar</option>
+            <option value="GBP">GBP — British Pound</option>
+            <option value="EUR">EUR — Euro</option>
+            <option value="CAD">CAD — Canadian Dollar</option>
+            <option value="AUD">AUD — Australian Dollar</option>
+            <option value="GHS">GHS — Ghanaian Cedi</option>
+            <option value="KES">KES — Kenyan Shilling</option>
+            <option value="ZAR">ZAR — South African Rand</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Items -->
+      <div class="card">
+        <h2 class="card__title">Items</h2>
+
+        <div id="itemsList" class="items-list"><!-- item rows injected by app.js --></div>
+
+        <button type="button" class="btn btn--secondary" id="addItemBtn">+ Add Item</button>
+      </div>
+
+      <!-- Discount & Tax -->
+      <div class="card">
+        <h2 class="card__title">Discount &amp; Tax</h2>
+
+        <div class="field">
+          <label>Discount</label>
+          <div class="discount-row">
+            <select id="discountType">
+              <option value="percentage">Percentage (%)</option>
+              <option value="fixed">Fixed Amount</option>
+            </select>
+            <input type="number" id="discountValue" min="0" step="0.01" placeholder="0" inputmode="decimal">
+          </div>
+          <span class="field-error" id="discountError"></span>
+        </div>
+
+        <div class="field">
+          <label for="taxValue">Tax (%)</label>
+          <input type="number" id="taxValue" min="0" step="0.01" placeholder="0" inputmode="decimal">
+          <span class="field-error" id="taxError"></span>
+        </div>
+      </div>
+
+      <!-- Notes -->
+      <div class="card">
+        <h2 class="card__title">Notes &amp; Terms</h2>
+
+        <div class="field">
+          <label for="invNotes">Notes</label>
+          <textarea id="invNotes" rows="2" placeholder="Thank you for your business." maxlength="400"></textarea>
+        </div>
+
+        <div class="field">
+          <label for="invTerms">Payment Terms</label>
+          <textarea id="invTerms" rows="2" placeholder="Payment due within 14 days." maxlength="400"></textarea>
+        </div>
+      </div>
+
+      <p class="privacy-note">🔒 Your invoice data stays in this browser. Nothing is uploaded to a server.</p>
+
+    </section>
+
+    <!-- ---------- PREVIEW PANEL ---------- -->
+    <section class="preview-panel" aria-label="Invoice preview">
+
+      <div class="preview-toolbar no-print">
+        <button type="button" class="btn btn--secondary" id="printBtn">🖨️ Print Invoice</button>
+        <button type="button" class="btn btn--primary" id="downloadPdfBtn">⬇️ Download PDF</button>
+      </div>
+
+      <div class="invoice-sheet" id="invoiceSheet">
+
+        <div class="invoice-top">
+          <div class="invoice-top__business">
+            <img id="previewLogo" alt="Business logo" class="invoice-logo hidden">
+            <div>
+              <div class="invoice-business-name" id="previewBizName">Your Business Name</div>
+              <div class="invoice-business-detail" id="previewBizEmail"></div>
+              <div class="invoice-business-detail" id="previewBizPhone"></div>
+              <div class="invoice-business-detail" id="previewBizAddress"></div>
+              <div class="invoice-business-detail" id="previewBizWebsite"></div>
+            </div>
+          </div>
+          <div class="invoice-top__meta">
+            <div class="invoice-title">INVOICE</div>
+            <div class="invoice-meta-row"><span>Invoice #</span><strong id="previewInvNumber">—</strong></div>
+            <div class="invoice-meta-row"><span>Date</span><strong id="previewInvDate">—</strong></div>
+            <div class="invoice-meta-row"><span>Due Date</span><strong id="previewInvDueDate">—</strong></div>
+          </div>
+        </div>
+
+        <div class="invoice-bill-to">
+          <div class="section-label">BILL TO</div>
+          <div class="invoice-customer-name" id="previewCustName">Customer Name</div>
+          <div class="invoice-business-detail" id="previewCustEmail"></div>
+          <div class="invoice-business-detail" id="previewCustPhone"></div>
+          <div class="invoice-business-detail" id="previewCustAddress"></div>
+        </div>
+
+        <table class="invoice-table">
+          <thead>
+            <tr>
+              <th class="col-desc">Description</th>
+              <th class="col-qty">Qty</th>
+              <th class="col-price">Price</th>
+              <th class="col-total">Total</th>
+            </tr>
+          </thead>
+          <tbody id="previewItemsBody">
+            <!-- rows injected by app.js -->
+          </tbody>
+        </table>
+
+        <div class="invoice-totals">
+          <div class="totals-row"><span>Subtotal</span><span id="previewSubtotal">0.00</span></div>
+          <div class="totals-row" id="previewDiscountRow"><span id="previewDiscountLabel">Discount</span><span id="previewDiscount">0.00</span></div>
+          <div class="totals-row" id="previewTaxRow"><span id="previewTaxLabel">Tax</span><span id="previewTax">0.00</span></div>
+          <div class="totals-row totals-row--grand"><span>Total</span><span id="previewGrandTotal">0.00</span></div>
+        </div>
+
+        <div class="invoice-notes" id="previewNotesBlock">
+          <div class="section-label">NOTES</div>
+          <div id="previewNotes"></div>
+        </div>
+
+        <div class="invoice-notes" id="previewTermsBlock">
+          <div class="section-label">PAYMENT TERMS</div>
+          <div id="previewTerms"></div>
+        </div>
+
+        <div class="invoice-footer">Generated with QuickInvoice</div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="app-footer no-print">
+    <p>QuickInvoice — Create professional invoices in minutes. Your data never leaves your browser.</p>
+  </footer>
+
+  <!-- PDF generation libraries (pinned versions, cdnjs) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <script src="app.js"></script>
+</body>
+</html>
