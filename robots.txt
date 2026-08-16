@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://quickinvoice.vivy.name.ng/sitemap.xml
+Sitemap: https://www.quickinvoice.app/sitemap.xml
