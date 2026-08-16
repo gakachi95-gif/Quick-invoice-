@@ -2,39 +2,81 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
-    <loc>https://www.quickinvoice.app/</loc>
+    <loc>https://quickinvoice.vivy.name.ng/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <url>
-    <loc>https://www.quickinvoice.app/invoice-generator/</loc>
+    <loc>https://quickinvoice.vivy.name.ng/invoice-generator/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://www.quickinvoice.app/invoice-templates/</loc>
+    <loc>https://quickinvoice.vivy.name.ng/invoice-templates/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://www.quickinvoice.app/receipt-generator/</loc>
+    <loc>https://quickinvoice.vivy.name.ng/receipt-generator/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://www.quickinvoice.app/quotation-generator/</loc>
+    <loc>https://quickinvoice.vivy.name.ng/quotation-generator/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://www.quickinvoice.app/estimate-generator/</loc>
+    <loc>https://quickinvoice.vivy.name.ng/estimate-generator/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://quickinvoice.vivy.name.ng/invoice-generator-for/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://quickinvoice.vivy.name.ng/invoice-generator-for/freelancers/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://quickinvoice.vivy.name.ng/invoice-generator-for/contractors/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://quickinvoice.vivy.name.ng/invoice-generator-for/small-business/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://quickinvoice.vivy.name.ng/invoice-generator-for/photographers/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://quickinvoice.vivy.name.ng/invoice-generator-for/cleaners/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://quickinvoice.vivy.name.ng/invoice-generator-for/web-designers/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
 
 </urlset>
