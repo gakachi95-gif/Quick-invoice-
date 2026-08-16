@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Free Invoice Generator – Create Professional Invoices Online | QuickInvoice</title>
+<meta name="description" content="Create a professional invoice online for free. Add your logo, items and taxes, preview it live, then download it as a PDF or print it. No signup required.">
+<link rel="canonical" href="https://quickinvoice.vivy.name.ng/invoice-generator/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Free Invoice Generator – Create Professional Invoices Online">
+<meta property="og:description" content="Create a professional invoice online for free. Add your logo, items and taxes, preview it live, then download it as a PDF or print it.">
+<meta property="og:url" content="https://quickinvoice.vivy.name.ng/invoice-generator/">
+<meta property="og:site_name" content="QuickInvoice">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Free Invoice Generator – Create Professional Invoices Online">
+<meta name="twitter:description" content="Create a professional invoice online for free, then download it as a PDF or print it. No signup required.">
+<link rel="stylesheet" href="/assets/style.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "QuickInvoice Invoice Generator",
+  "url": "https://quickinvoice.vivy.name.ng/invoice-generator/",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Any (Web Browser)",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Create professional invoices online for free with a live preview, PDF download and print support."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://quickinvoice.vivy.name.ng/" },
+    { "@type": "ListItem", "position": 2, "name": "Invoice Generator", "item": "https://quickinvoice.vivy.name.ng/invoice-generator/" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is QuickInvoice's invoice generator free?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. You can create, preview, print and download invoices as a PDF for free, with no signup required." }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need to create an account?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No account is needed. Your invoice is built and stored in your own browser, and you can download it whenever you're ready." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I download my invoice as a PDF?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. Use the Download PDF button to save a clean, print-ready PDF of your invoice, generated directly in your browser." }
+    },
+    {
+      "@type": "Question",
+      "name": "What should an invoice include?",
+      "acceptedAnswer": { "@type": "Answer", "text": "A typical invoice includes your business details, your customer's details, a unique invoice number, the invoice and due dates, a description of each item or service with quantity and price, the subtotal, any discount or tax, and the total amount due." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+  <header class="app-header no-print">
+    <div class="app-header__inner">
+      <a href="https://quickinvoice.vivy.name.ng/" class="brand" style="text-decoration:none;">
+        <div class="brand__mark">QI</div>
+        <div class="brand__text">
+          <span class="brand__name">QuickInvoice</span>
+          <span class="brand__tagline">Create professional invoices in minutes.</span>
+        </div>
+      </a>
+      <nav class="site-nav" aria-label="Main">
+        <a href="https://quickinvoice.vivy.name.ng/invoice-generator/" aria-current="page">Invoice</a>
+        <a href="https://quickinvoice.vivy.name.ng/receipt-generator/">Receipt</a>
+        <a href="https://quickinvoice.vivy.name.ng/quotation-generator/">Quotation</a>
+        <a href="https://quickinvoice.vivy.name.ng/estimate-generator/">Estimate</a>
+        <a href="https://quickinvoice.vivy.name.ng/invoice-templates/">Templates</a>
+      </nav>
+      <div class="mode-toggle" role="tablist" aria-label="Editor mode">
+        <button type="button" class="mode-toggle__btn is-active" id="modeEditBtn" role="tab" aria-selected="true">Edit</button>
+        <button type="button" class="mode-toggle__btn" id="modePreviewBtn" role="tab" aria-selected="false">Preview</button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="breadcrumbs no-print" aria-label="Breadcrumb">
+    <a href="https://quickinvoice.vivy.name.ng/">Home</a> / <span aria-current="page">Invoice Generator</span>
+  </nav>
+
+  <div class="page-heading no-print">
+    <h1>Create an Invoice Online for Free</h1>
+    <p>Fill in your details below — your invoice updates live. Download it as a PDF or print it when you're done, no signup needed.</p>
+  </div>
+
+  <main class="app-shell">
+
+    <section class="editor-main" aria-label="Invoice document">
+
+      <div class="editor-toolbar no-print">
+        <div class="toolbar-actions">
+          <button type="button" class="btn btn--secondary" id="printBtn">🖨️ <span>Print Invoice</span></button>
+          <button type="button" class="btn btn--secondary" id="shareBtn">🔗 <span>Share Invoice</span></button>
+          <button type="button" class="btn btn--primary" id="downloadPdfBtn">⬇️ <span>Download PDF</span></button>
+        </div>
+      </div>
+
+      <div class="invoice-sheet" id="invoiceSheet" data-template="classic">
+
+        <div class="doc-top">
+          <div class="doc-top__title-block">
+            <div class="invoice-title" id="docTitleLabel">Invoice</div>
+            <p class="doc-type-banner hidden" id="docTypeBanner"></p>
+            <div class="doc-meta-inline">
+              <label class="doc-label">Number</label>
+              <input type="text" id="invNumber" class="doc-input doc-input--tight" maxlength="40">
+            </div>
+            <div class="doc-meta-inline">
+              <label class="doc-label">Date</label>
+              <input type="date" id="invDate" class="doc-input doc-input--tight">
+            </div>
+            <div class="doc-meta-inline" id="invDueTermRow">
+              <label class="doc-label" id="secondaryDateTermLabel">Terms</label>
+              <select id="invDueTerm" class="doc-input doc-input--tight">
+                <option value="receipt">Due on Receipt</option>
+                <option value="net7">Net 7</option>
+                <option value="net14" selected>Net 14</option>
+                <option value="net30">Net 30</option>
+                <option value="net60">Net 60</option>
+                <option value="custom">Custom</option>
+              </select>
+            </div>
+            <div class="doc-meta-inline" id="invDueDateRow">
+              <label class="doc-label" id="secondaryDateLabel">Due Date</label>
+              <input type="date" id="invDueDate" class="doc-input doc-input--tight">
+            </div>
+          </div>
+
+          <div class="logo-box no-preview" id="logoBox">
+            <img id="docLogoImg" class="logo-box__img hidden" alt="Business logo">
+            <label class="logo-box__placeholder" id="logoPlaceholder" for="logoInput">
+              <span class="logo-box__icon">🖼️</span>
+              <span>+ Logo</span>
+            </label>
+            <button type="button" class="logo-box__remove hidden" id="removeLogoBtn" aria-label="Remove logo">✕</button>
+            <input type="file" id="logoInput" accept="image/png, image/jpeg, image/webp" class="hidden">
+          </div>
+        </div>
+
+        <div class="doc-parties">
+          <div class="doc-party">
+            <div class="section-label">From</div>
+            <input type="text" id="bizName" class="doc-input doc-input--name" placeholder="Your Business Name" maxlength="120">
+            <input type="email" id="bizEmail" class="doc-input" placeholder="name@business.com" maxlength="120">
+            <span class="field-error" id="bizEmailError"></span>
+            <input type="tel" id="bizPhone" class="doc-input" placeholder="Phone number" maxlength="40">
+            <textarea id="bizAddress" class="doc-input doc-textarea" rows="2" placeholder="Business address" maxlength="300"></textarea>
+            <input type="url" id="bizWebsite" class="doc-input" placeholder="Website (optional)" maxlength="150">
+          </div>
+
+          <div class="doc-party">
+            <div class="section-label" id="billToLabel">Bill To</div>
+            <input type="text" id="custName" class="doc-input doc-input--name" placeholder="Client Name" maxlength="120">
+            <input type="email" id="custEmail" class="doc-input" placeholder="client@email.com" maxlength="120">
+            <span class="field-error" id="custEmailError"></span>
+            <input type="tel" id="custPhone" class="doc-input" placeholder="Phone number" maxlength="40">
+            <textarea id="custAddress" class="doc-input doc-textarea" rows="2" placeholder="Client address" maxlength="300"></textarea>
+          </div>
+        </div>
+
+        <table class="invoice-table" id="itemsTable">
+          <thead>
+            <tr>
+              <th class="col-desc">Description</th>
+              <th class="col-qty">Qty</th>
+              <th class="col-price">Price</th>
+              <th class="col-total">Total</th>
+              <th class="col-remove no-preview"></th>
+            </tr>
+          </thead>
+          <tbody id="itemsBody"></tbody>
+        </table>
+
+        <button type="button" class="btn btn--secondary btn--small no-preview" id="addItemBtn">+ Add Item</button>
+
+        <div class="invoice-totals">
+          <div class="totals-row"><span>Subtotal</span><span id="previewSubtotal">0.00</span></div>
+          <div class="totals-row" id="previewDiscountRow"><span id="previewDiscountLabel">Discount</span><span id="previewDiscount">0.00</span></div>
+          <div class="totals-row" id="previewTaxRow"><span id="previewTaxLabel">Tax</span><span id="previewTax">0.00</span></div>
+          <div class="totals-row totals-row--grand"><span>Total</span><span id="previewGrandTotal">0.00</span></div>
+          <div class="totals-row" id="previewPaidRow"><span>Amount Paid</span><span id="previewPaid">0.00</span></div>
+          <div class="totals-row totals-row--balance" id="previewBalanceRow"><span>Balance Due</span><span id="previewBalance">0.00</span></div>
+        </div>
+
+        <div class="doc-payment hidden" id="docPaymentMethodBlock">
+          <div class="section-label">Payment Method</div>
+          <select id="paymentMethodSelect" class="doc-input"></select>
+        </div>
+
+        <div class="doc-notes">
+          <div class="section-label">Notes</div>
+          <textarea id="invNotes" class="doc-input doc-textarea" rows="2" placeholder="Thank you for your business." maxlength="400"></textarea>
+        </div>
+
+        <div class="doc-notes">
+          <div class="section-label">Terms &amp; Conditions</div>
+          <textarea id="invTerms" class="doc-input doc-textarea" rows="2" placeholder="Payment due within the stated terms." maxlength="400"></textarea>
+        </div>
+
+        <div class="doc-payment hidden" id="docPaymentBlock">
+          <div class="section-label">Payment Details</div>
+          <div class="doc-payment__grid">
+            <div><span>Bank</span><strong id="docPayBank">—</strong></div>
+            <div><span>Account Name</span><strong id="docPayAcctName">—</strong></div>
+            <div><span>Account Number</span><strong id="docPayAcctNumber">—</strong></div>
+          </div>
+          <p class="doc-payment__instructions" id="docPayInstructions"></p>
+          <button type="button" class="btn btn--pay" id="payInvoiceBtn" disabled title="Online payments are coming soon">Pay Invoice — Coming Soon</button>
+        </div>
+
+        <div class="doc-signature">
+          <div class="section-label">Signature</div>
+
+          <div id="signatureDisplay" class="signature-display hidden">
+            <img id="signatureImg" alt="Signature" class="signature-display__img">
+            <button type="button" class="btn btn--text no-preview" id="removeSignatureBtn">Remove</button>
+          </div>
+
+          <button type="button" class="btn btn--secondary btn--small no-preview" id="addSignatureBtn">+ Add Signature</button>
+
+          <div id="signaturePanel" class="signature-panel hidden no-print no-preview">
+            <div class="signature-panel__tabs">
+              <button type="button" class="signature-tab is-active" data-sig-tab="draw">Draw</button>
+              <button type="button" class="signature-tab" data-sig-tab="upload">Upload Image</button>
+            </div>
+
+            <div class="signature-tab-content" id="sigTabDraw">
+              <canvas id="signatureCanvas" width="600" height="180" class="signature-canvas"></canvas>
+              <div class="signature-panel__actions">
+                <button type="button" class="btn btn--ghost btn--small" id="clearSignatureCanvasBtn">Clear</button>
+                <button type="button" class="btn btn--primary btn--small" id="saveSignatureDrawBtn">Save Signature</button>
+              </div>
+            </div>
+
+            <div class="signature-tab-content hidden" id="sigTabUpload">
+              <label class="btn btn--secondary btn--small" for="signatureUploadInput">Choose Image</label>
+              <input type="file" id="signatureUploadInput" accept="image/png, image/jpeg, image/webp" class="hidden">
+              <p class="field-hint">PNG or JPG, up to 2MB. A transparent PNG works best.</p>
+            </div>
+
+            <button type="button" class="btn btn--text btn--small" id="cancelSignatureBtn">Cancel</button>
+          </div>
+        </div>
+
+        <div class="doc-photos">
+          <div class="section-label">Photos &amp; Attachments</div>
+          <div class="photos-grid" id="photosGrid"></div>
+          <label class="btn btn--secondary btn--small no-preview" for="photoInput">+ Add Photo</label>
+          <input type="file" id="photoInput" accept="image/png, image/jpeg, image/webp" multiple class="hidden">
+          <p class="field-hint no-preview">Up to 6 photos. Kept in your browser only.</p>
+        </div>
+
+        <div class="invoice-footer">Generated with QuickInvoice</div>
+      </div>
+
+      <p class="privacy-note no-print">🔒 Your invoice data stays in this browser. Nothing is uploaded to a server.</p>
+    </section>
+
+    <aside class="editor-sidebar no-print" aria-label="Invoice settings">
+
+      <details class="sidebar-section" open>
+        <summary>Template</summary>
+        <div class="template-grid" id="templateGrid">
+          <button type="button" class="template-swatch is-active" data-template="classic"><span class="template-swatch__preview template-swatch__preview--classic"></span>Classic</button>
+          <button type="button" class="template-swatch" data-template="modern"><span class="template-swatch__preview template-swatch__preview--modern"></span>Modern</button>
+          <button type="button" class="template-swatch" data-template="minimal"><span class="template-swatch__preview template-swatch__preview--minimal"></span>Minimal</button>
+          <button type="button" class="template-swatch" data-template="professional"><span class="template-swatch__preview template-swatch__preview--professional"></span>Professional</button>
+        </div>
+        <p class="field-hint">Browse full-size previews on the <a href="https://quickinvoice.vivy.name.ng/invoice-templates/">invoice templates</a> page.</p>
+      </details>
+
+      <details class="sidebar-section" open>
+        <summary>Color</summary>
+        <div class="color-grid" id="colorGrid">
+          <button type="button" class="color-swatch is-active" data-color="#4f46e5" style="background:#4f46e5" aria-label="Indigo"></button>
+          <button type="button" class="color-swatch" data-color="#0f766e" style="background:#0f766e" aria-label="Teal"></button>
+          <button type="button" class="color-swatch" data-color="#b91c1c" style="background:#b91c1c" aria-label="Red"></button>
+          <button type="button" class="color-swatch" data-color="#c2410c" style="background:#c2410c" aria-label="Orange"></button>
+          <button type="button" class="color-swatch" data-color="#7c3aed" style="background:#7c3aed" aria-label="Violet"></button>
+          <button type="button" class="color-swatch" data-color="#0369a1" style="background:#0369a1" aria-label="Blue"></button>
+          <button type="button" class="color-swatch" data-color="#15803d" style="background:#15803d" aria-label="Green"></button>
+          <button type="button" class="color-swatch" data-color="#111827" style="background:#111827" aria-label="Charcoal"></button>
+        </div>
+        <label class="field-hint" for="customColorInput">Custom color</label>
+        <input type="color" id="customColorInput" value="#4f46e5" class="custom-color-input">
+      </details>
+
+      <details class="sidebar-section" open>
+        <summary>Tax</summary>
+        <div class="field">
+          <label for="taxValue">Tax rate (%)</label>
+          <input type="number" id="taxValue" min="0" step="0.01" placeholder="0" inputmode="decimal">
+          <span class="field-error" id="taxError"></span>
+        </div>
+      </details>
+
+      <details class="sidebar-section" open>
+        <summary>Discount</summary>
+        <div class="field">
+          <label for="discountType">Type</label>
+          <select id="discountType">
+            <option value="percentage">Percentage (%)</option>
+            <option value="fixed">Fixed Amount</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="discountValue">Value</label>
+          <input type="number" id="discountValue" min="0" step="0.01" placeholder="0" inputmode="decimal">
+          <span class="field-error" id="discountError"></span>
+        </div>
+      </details>
+
+      <details class="sidebar-section" open>
+        <summary>Currency</summary>
+        <div class="field">
+          <label for="invCurrency">Invoice currency</label>
+          <select id="invCurrency">
+            <option value="NGN">NGN — Nigerian Naira</option>
+            <option value="USD">USD — US Dollar</option>
+            <option value="GBP">GBP — British Pound</option>
+            <option value="EUR">EUR — Euro</option>
+            <option value="CAD">CAD — Canadian Dollar</option>
+            <option value="AUD">AUD — Australian Dollar</option>
+            <option value="GHS">GHS — Ghanaian Cedi</option>
+            <option value="KES">KES — Kenyan Shilling</option>
+            <option value="ZAR">ZAR — South African Rand</option>
+          </select>
+        </div>
+      </details>
+
+      <details class="sidebar-section" id="paymentSidebarSection">
+        <summary>Payment</summary>
+        <div class="field"><label for="paymentBankName">Bank name</label><input type="text" id="paymentBankName" placeholder="e.g. First Bank" maxlength="100"></div>
+        <div class="field"><label for="paymentAccountName">Account name</label><input type="text" id="paymentAccountName" placeholder="Account holder name" maxlength="100"></div>
+        <div class="field"><label for="paymentAccountNumber">Account number</label><input type="text" id="paymentAccountNumber" placeholder="0123456789" maxlength="40" inputmode="numeric"></div>
+        <div class="field"><label for="paymentInstructions">Payment instructions</label><textarea id="paymentInstructions" rows="2" placeholder="e.g. Please include invoice number as reference." maxlength="300"></textarea></div>
+        <div class="field"><label for="amountPaidInput">Amount already paid</label><input type="number" id="amountPaidInput" min="0" step="0.01" placeholder="0" inputmode="decimal"></div>
+        <label class="checkbox-field"><input type="checkbox" id="paymentShowToggle"><span>Show payment details on invoice</span></label>
+        <p class="field-hint">A "Pay Invoice" button is prepared for a future update — online payments are not active yet.</p>
+      </details>
+
+      <details class="sidebar-section" open>
+        <summary>Options</summary>
+        <button type="button" class="btn btn--ghost btn--full" id="newInvoiceBtn">New Invoice</button>
+        <button type="button" class="btn btn--ghost btn--full" id="clearInvoiceBtn">Clear Invoice</button>
+      </details>
+
+    </aside>
+
+  </main>
+
+  <!-- ===================== SEO CONTENT ===================== -->
+  <article class="seo-content no-print">
+
+    <h2>What is an invoice?</h2>
+    <p>An invoice is a document a business sends to a customer requesting payment for goods or services provided. It lists what was delivered, how much it costs, and when payment is due. Invoices create a clear, professional record for both sides and are often needed for bookkeeping, tax filing and following up on unpaid work.</p>
+
+    <h2>How to create an invoice with QuickInvoice</h2>
+    <ol>
+      <li>Add your business name, contact details and, optionally, your logo.</li>
+      <li>Enter your customer's name and contact information.</li>
+      <li>Add each item or service with its quantity and price — the line and grand totals update automatically.</li>
+      <li>Apply a discount or tax rate if needed, and choose your currency.</li>
+      <li>Add any notes or payment terms, then download the invoice as a PDF or print it directly.</li>
+    </ol>
+
+    <h2>What should an invoice include?</h2>
+    <ul>
+      <li>Your business name and contact details</li>
+      <li>Your customer's name and contact details</li>
+      <li>A unique invoice number</li>
+      <li>The invoice date and payment due date</li>
+      <li>A clear description of each item or service, with quantity and unit price</li>
+      <li>The subtotal, any discount, tax, and the total amount due</li>
+      <li>Payment instructions or terms, if relevant</li>
+    </ul>
+
+    <h2>Who can use QuickInvoice?</h2>
+    <p>QuickInvoice works well for freelancers, contractors, consultants, agencies, and small business owners who need to send a professional invoice without setting up accounting software. If you only need to bill clients occasionally — or you're just getting started — it's a fast way to look professional from your first invoice.</p>
+
+    <h2>How PDF invoices work</h2>
+    <p>When you click Download PDF, QuickInvoice renders your invoice exactly as shown on screen and generates a PDF file directly in your browser. Nothing is uploaded to a server — the file is created on your device and downloaded straight to it, so your business and customer data stay private.</p>
+
+    <h2>How to make an invoice look professional</h2>
+    <ul>
+      <li>Add your logo so the invoice is instantly recognizable as coming from your business.</li>
+      <li>Keep item descriptions specific rather than vague ("Logo design — 3 concepts" instead of "Design work").</li>
+      <li>Use a consistent invoice numbering system so invoices are easy to reference later.</li>
+      <li>State your payment terms clearly, including the due date and accepted payment methods.</li>
+      <li>Proofread names, amounts and dates before sending — small errors delay payment.</li>
+    </ul>
+
+    <h2>Common invoice mistakes to avoid</h2>
+    <ul>
+      <li>Forgetting to include a due date, which makes it unclear when payment is expected.</li>
+      <li>Reusing the same invoice number, which causes confusion in your records.</li>
+      <li>Leaving out contact details, so the customer can't easily reach you with questions.</li>
+      <li>Mixing up subtotal, tax and total, which can make the final amount unclear.</li>
+    </ul>
+
+    <h2>Frequently asked questions</h2>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>Is QuickInvoice's invoice generator free?</summary>
+        <p>Yes. You can create, preview, print and download invoices as a PDF for free, with no signup required.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Do I need to create an account?</summary>
+        <p>No account is needed. Your invoice is built and saved in your own browser, and you can come back to it later on the same device.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Can I download my invoice as a PDF?</summary>
+        <p>Yes — use the Download PDF button to save a clean, print-ready PDF generated directly in your browser.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Can I add my logo and change the invoice color?</summary>
+        <p>Yes. Upload a logo, pick from four templates, and choose an accent color from the sidebar — everything updates on the invoice instantly.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Is my invoice data private?</summary>
+        <p>Yes. Your invoice data, logo, signature and photos are stored only in your browser and are never uploaded to a server.</p>
+      </details>
+    </div>
+
+    <h2>Related tools</h2>
+    <div class="related-tools">
+      <a class="related-tool-card" href="https://quickinvoice.vivy.name.ng/receipt-generator/">
+        <div class="related-tool-card__title">Try the receipt generator</div>
+        <div class="related-tool-card__desc">Create a receipt for a completed payment.</div>
+      </a>
+      <a class="related-tool-card" href="https://quickinvoice.vivy.name.ng/quotation-generator/">
+        <div class="related-tool-card__title">Create a professional quotation</div>
+        <div class="related-tool-card__desc">Send a price quote before work begins.</div>
+      </a>
+      <a class="related-tool-card" href="https://quickinvoice.vivy.name.ng/estimate-generator/">
+        <div class="related-tool-card__title">Build a project estimate</div>
+        <div class="related-tool-card__desc">Give clients an approximate project cost.</div>
+      </a>
+      <a class="related-tool-card" href="https://quickinvoice.vivy.name.ng/invoice-templates/">
+        <div class="related-tool-card__title">Browse invoice templates</div>
+        <div class="related-tool-card__desc">See all four templates before you start.</div>
+      </a>
+    </div>
+  </article>
+
+  <footer class="site-footer no-print">
+    <div class="site-footer__inner">
+      <div>
+        <h3>QuickInvoice</h3>
+        <p>Create professional invoices, receipts, quotations and estimates online — free, fast, and mobile-friendly. Your data stays in your browser.</p>
+      </div>
+      <div>
+        <h3>Tools</h3>
+        <ul>
+          <li><a href="https://quickinvoice.vivy.name.ng/invoice-generator/">Invoice Generator</a></li>
+          <li><a href="https://quickinvoice.vivy.name.ng/receipt-generator/">Receipt Generator</a></li>
+          <li><a href="https://quickinvoice.vivy.name.ng/quotation-generator/">Quotation Generator</a></li>
+          <li><a href="https://quickinvoice.vivy.name.ng/estimate-generator/">Estimate Generator</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Resources</h3>
+        <ul>
+          <li><a href="https://quickinvoice.vivy.name.ng/invoice-templates/">Invoice Templates</a></li>
+          <li><a href="https://quickinvoice.vivy.name.ng/">Homepage</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Company</h3>
+        <ul>
+          <li><a href="https://quickinvoice.vivy.name.ng/#how-it-works">How it works</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="site-footer__bottom">© <span id="footerYear"></span> QuickInvoice. All rights reserved.</div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script>
+    window.QI_CONFIG = {
+      docType: "invoice",
+      numberPrefix: "INV",
+      storageKey: "quickinvoice_current_invoice_v3",
+      labels: { title: "Invoice", billTo: "Bill To", secondaryDateTerm: "Terms", secondaryDate: "Due Date" },
+      defaults: { notes: "Thank you for your business.", terms: "Payment due within the stated terms." },
+      showSecondaryDate: true,
+      showPaymentBlock: true,
+      showPaymentMethod: false,
+      showBalance: true,
+      noteBanner: ""
+    };
+    document.getElementById("footerYear").textContent = new Date().getFullYear();
+  </script>
+  <script src="/assets/js/document-engine.js"></script>
+</body>
+</html>
