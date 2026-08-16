@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Free Receipt Generator – Create a Payment Receipt Online | QuickInvoice</title>
+<meta name="description" content="Create a professional payment receipt online for free. Add your business details, items and payment method, then download it as a PDF or print it instantly.">
+<link rel="canonical" href="https://quickinvoice.vivy.name.ng/receipt-generator/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Free Receipt Generator – Create a Payment Receipt Online">
+<meta property="og:description" content="Create a professional payment receipt online for free, then download it as a PDF or print it.">
+<meta property="og:url" content="https://quickinvoice.vivy.name.ng/receipt-generator/">
+<meta property="og:site_name" content="QuickInvoice">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Free Receipt Generator – Create a Payment Receipt Online">
+<meta name="twitter:description" content="Create a professional payment receipt online for free, then download it as a PDF or print it.">
+<link rel="stylesheet" href="/assets/style.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "QuickInvoice Receipt Generator",
+  "url": "https://quickinvoice.vivy.name.ng/receipt-generator/",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Any (Web Browser)",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Create professional payment receipts online for free with a live preview, PDF download and print support."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://quickinvoice.vivy.name.ng/" },
+    { "@type": "ListItem", "position": 2, "name": "Receipt Generator", "item": "https://quickinvoice.vivy.name.ng/receipt-generator/" }
+  ]
+}
+</script>
+</head>
+<body>
+
+  <header class="app-header no-print">
+    <div class="app-header__inner">
+      <a href="/" class="brand" style="text-decoration:none;">
+        <div class="brand__mark">QI</div>
+        <div class="brand__text">
+          <span class="brand__name">QuickInvoice</span>
+          <span class="brand__tagline">Create professional invoices in minutes.</span>
+        </div>
+      </a>
+      <nav class="site-nav" aria-label="Main">
+        <a href="/invoice-generator/">Invoice</a>
+        <a href="/receipt-generator/" aria-current="page">Receipt</a>
+        <a href="/quotation-generator/">Quotation</a>
+        <a href="/estimate-generator/">Estimate</a>
+        <a href="/invoice-templates/">Templates</a>
+      </nav>
+      <div class="mode-toggle" role="tablist" aria-label="Editor mode">
+        <button type="button" class="mode-toggle__btn is-active" id="modeEditBtn" role="tab" aria-selected="true">Edit</button>
+        <button type="button" class="mode-toggle__btn" id="modePreviewBtn" role="tab" aria-selected="false">Preview</button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="breadcrumbs no-print" aria-label="Breadcrumb">
+    <a href="/">Home</a> / <span aria-current="page">Receipt Generator</span>
+  </nav>
+
+  <div class="page-heading no-print">
+    <h1>Create a Payment Receipt Online for Free</h1>
+    <p>Record a completed payment with a clean, professional receipt. Download it as a PDF or print it — no signup needed.</p>
+  </div>
+
+  <main class="app-shell">
+
+    <section class="editor-main" aria-label="Receipt document">
+
+      <div class="editor-toolbar no-print">
+        <div class="toolbar-actions">
+          <button type="button" class="btn btn--secondary" id="printBtn">🖨️ <span>Print Receipt</span></button>
+          <button type="button" class="btn btn--secondary" id="shareBtn">🔗 <span>Share Receipt</span></button>
+          <button type="button" class="btn btn--primary" id="downloadPdfBtn">⬇️ <span>Download PDF</span></button>
+        </div>
+      </div>
+
+      <div class="invoice-sheet" id="invoiceSheet" data-template="classic">
+
+        <div class="doc-top">
+          <div class="doc-top__title-block">
+            <div class="invoice-title" id="docTitleLabel">Receipt</div>
+            <p class="doc-type-banner hidden" id="docTypeBanner"></p>
+            <div class="doc-meta-inline">
+              <label class="doc-label">Number</label>
+              <input type="text" id="invNumber" class="doc-input doc-input--tight" maxlength="40">
+            </div>
+            <div class="doc-meta-inline">
+              <label class="doc-label">Date</label>
+              <input type="date" id="invDate" class="doc-input doc-input--tight">
+            </div>
+            <div class="doc-meta-inline hidden" id="invDueTermRow">
+              <label class="doc-label" id="secondaryDateTermLabel">Terms</label>
+              <select id="invDueTerm" class="doc-input doc-input--tight">
+                <option value="receipt">Due on Receipt</option>
+                <option value="net7">Net 7</option>
+                <option value="net14" selected>Net 14</option>
+                <option value="net30">Net 30</option>
+                <option value="net60">Net 60</option>
+                <option value="custom">Custom</option>
+              </select>
+            </div>
+            <div class="doc-meta-inline hidden" id="invDueDateRow">
+              <label class="doc-label" id="secondaryDateLabel">Due Date</label>
+              <input type="date" id="invDueDate" class="doc-input doc-input--tight">
+            </div>
+          </div>
+
+          <div class="logo-box no-preview" id="logoBox">
+            <img id="docLogoImg" class="logo-box__img hidden" alt="Business logo">
+            <label class="logo-box__placeholder" id="logoPlaceholder" for="logoInput"><span class="logo-box__icon">🖼️</span><span>+ Logo</span></label>
+            <button type="button" class="logo-box__remove hidden" id="removeLogoBtn" aria-label="Remove logo">✕</button>
+            <input type="file" id="logoInput" accept="image/png, image/jpeg, image/webp" class="hidden">
+          </div>
+        </div>
+
+        <div class="doc-parties">
+          <div class="doc-party">
+            <div class="section-label">From</div>
+            <input type="text" id="bizName" class="doc-input doc-input--name" placeholder="Your Business Name" maxlength="120">
+            <input type="email" id="bizEmail" class="doc-input" placeholder="name@business.com" maxlength="120">
+            <span class="field-error" id="bizEmailError"></span>
+            <input type="tel" id="bizPhone" class="doc-input" placeholder="Phone number" maxlength="40">
+            <textarea id="bizAddress" class="doc-input doc-textarea" rows="2" placeholder="Business address" maxlength="300"></textarea>
+            <input type="url" id="bizWebsite" class="doc-input" placeholder="Website (optional)" maxlength="150">
+          </div>
+
+          <div class="doc-party">
+            <div class="section-label" id="billToLabel">Received From</div>
+            <input type="text" id="custName" class="doc-input doc-input--name" placeholder="Customer Name" maxlength="120">
+            <input type="email" id="custEmail" class="doc-input" placeholder="customer@email.com" maxlength="120">
+            <span class="field-error" id="custEmailError"></span>
+            <input type="tel" id="custPhone" class="doc-input" placeholder="Phone number" maxlength="40">
+            <textarea id="custAddress" class="doc-input doc-textarea" rows="2" placeholder="Customer address" maxlength="300"></textarea>
+          </div>
+        </div>
+
+        <table class="invoice-table" id="itemsTable">
+          <thead><tr><th class="col-desc">Description</th><th class="col-qty">Qty</th><th class="col-price">Price</th><th class="col-total">Total</th><th class="col-remove no-preview"></th></tr></thead>
+          <tbody id="itemsBody"></tbody>
+        </table>
+
+        <button type="button" class="btn btn--secondary btn--small no-preview" id="addItemBtn">+ Add Item</button>
+
+        <div class="invoice-totals">
+          <div class="totals-row"><span>Subtotal</span><span id="previewSubtotal">0.00</span></div>
+          <div class="totals-row" id="previewDiscountRow"><span id="previewDiscountLabel">Discount</span><span id="previewDiscount">0.00</span></div>
+          <div class="totals-row" id="previewTaxRow"><span id="previewTaxLabel">Tax</span><span id="previewTax">0.00</span></div>
+          <div class="totals-row totals-row--grand"><span>Total Paid</span><span id="previewGrandTotal">0.00</span></div>
+          <div class="totals-row hidden" id="previewPaidRow"><span>Amount Paid</span><span id="previewPaid">0.00</span></div>
+          <div class="totals-row totals-row--balance hidden" id="previewBalanceRow"><span>Balance Due</span><span id="previewBalance">0.00</span></div>
+        </div>
+
+        <div class="doc-payment" id="docPaymentMethodBlock">
+          <div class="section-label">Payment Method</div>
+          <select id="paymentMethodSelect" class="doc-input"></select>
+        </div>
+
+        <div class="doc-notes">
+          <div class="section-label">Notes</div>
+          <textarea id="invNotes" class="doc-input doc-textarea" rows="2" placeholder="Thank you for your payment." maxlength="400"></textarea>
+        </div>
+
+        <div class="doc-notes">
+          <div class="section-label">Terms &amp; Conditions</div>
+          <textarea id="invTerms" class="doc-input doc-textarea" rows="2" placeholder="e.g. Refunds accepted within 7 days with this receipt." maxlength="400"></textarea>
+        </div>
+
+        <div class="doc-payment hidden" id="docPaymentBlock">
+          <div class="section-label">Payment Details</div>
+          <div class="doc-payment__grid"><div><span>Bank</span><strong id="docPayBank">—</strong></div><div><span>Account Name</span><strong id="docPayAcctName">—</strong></div><div><span>Account Number</span><strong id="docPayAcctNumber">—</strong></div></div>
+          <p class="doc-payment__instructions" id="docPayInstructions"></p>
+          <button type="button" class="btn btn--pay" id="payInvoiceBtn" disabled title="Not applicable to receipts">Pay Invoice — Coming Soon</button>
+        </div>
+
+        <div class="doc-signature">
+          <div class="section-label">Signature</div>
+          <div id="signatureDisplay" class="signature-display hidden"><img id="signatureImg" alt="Signature" class="signature-display__img"><button type="button" class="btn btn--text no-preview" id="removeSignatureBtn">Remove</button></div>
+          <button type="button" class="btn btn--secondary btn--small no-preview" id="addSignatureBtn">+ Add Signature</button>
+          <div id="signaturePanel" class="signature-panel hidden no-print no-preview">
+            <div class="signature-panel__tabs"><button type="button" class="signature-tab is-active" data-sig-tab="draw">Draw</button><button type="button" class="signature-tab" data-sig-tab="upload">Upload Image</button></div>
+            <div class="signature-tab-content" id="sigTabDraw">
+              <canvas id="signatureCanvas" width="600" height="180" class="signature-canvas"></canvas>
+              <div class="signature-panel__actions"><button type="button" class="btn btn--ghost btn--small" id="clearSignatureCanvasBtn">Clear</button><button type="button" class="btn btn--primary btn--small" id="saveSignatureDrawBtn">Save Signature</button></div>
+            </div>
+            <div class="signature-tab-content hidden" id="sigTabUpload">
+              <label class="btn btn--secondary btn--small" for="signatureUploadInput">Choose Image</label>
+              <input type="file" id="signatureUploadInput" accept="image/png, image/jpeg, image/webp" class="hidden">
+              <p class="field-hint">PNG or JPG, up to 2MB.</p>
+            </div>
+            <button type="button" class="btn btn--text btn--small" id="cancelSignatureBtn">Cancel</button>
+          </div>
+        </div>
+
+        <div class="doc-photos">
+          <div class="section-label">Photos &amp; Attachments</div>
+          <div class="photos-grid" id="photosGrid"></div>
+          <label class="btn btn--secondary btn--small no-preview" for="photoInput">+ Add Photo</label>
+          <input type="file" id="photoInput" accept="image/png, image/jpeg, image/webp" multiple class="hidden">
+          <p class="field-hint no-preview">Up to 6 photos — handy for a photo of the item or a scanned document.</p>
+        </div>
+
+        <div class="invoice-footer">Generated with QuickInvoice</div>
+      </div>
+
+      <p class="privacy-note no-print">🔒 Your receipt data stays in this browser. Nothing is uploaded to a server.</p>
+    </section>
+
+    <aside class="editor-sidebar no-print" aria-label="Receipt settings">
+      <details class="sidebar-section" open>
+        <summary>Template</summary>
+        <div class="template-grid" id="templateGrid">
+          <button type="button" class="template-swatch is-active" data-template="classic"><span class="template-swatch__preview template-swatch__preview--classic"></span>Classic</button>
+          <button type="button" class="template-swatch" data-template="modern"><span class="template-swatch__preview template-swatch__preview--modern"></span>Modern</button>
+          <button type="button" class="template-swatch" data-template="minimal"><span class="template-swatch__preview template-swatch__preview--minimal"></span>Minimal</button>
+          <button type="button" class="template-swatch" data-template="professional"><span class="template-swatch__preview template-swatch__preview--professional"></span>Professional</button>
+        </div>
+      </details>
+      <details class="sidebar-section" open>
+        <summary>Color</summary>
+        <div class="color-grid" id="colorGrid">
+          <button type="button" class="color-swatch is-active" data-color="#4f46e5" style="background:#4f46e5" aria-label="Indigo"></button>
+          <button type="button" class="color-swatch" data-color="#0f766e" style="background:#0f766e" aria-label="Teal"></button>
+          <button type="button" class="color-swatch" data-color="#b91c1c" style="background:#b91c1c" aria-label="Red"></button>
+          <button type="button" class="color-swatch" data-color="#c2410c" style="background:#c2410c" aria-label="Orange"></button>
+          <button type="button" class="color-swatch" data-color="#7c3aed" style="background:#7c3aed" aria-label="Violet"></button>
+          <button type="button" class="color-swatch" data-color="#0369a1" style="background:#0369a1" aria-label="Blue"></button>
+          <button type="button" class="color-swatch" data-color="#15803d" style="background:#15803d" aria-label="Green"></button>
+          <button type="button" class="color-swatch" data-color="#111827" style="background:#111827" aria-label="Charcoal"></button>
+        </div>
+        <label class="field-hint" for="customColorInput">Custom color</label>
+        <input type="color" id="customColorInput" value="#4f46e5" class="custom-color-input">
+      </details>
+      <details class="sidebar-section" open>
+        <summary>Tax</summary>
+        <div class="field"><label for="taxValue">Tax rate (%)</label><input type="number" id="taxValue" min="0" step="0.01" placeholder="0" inputmode="decimal"><span class="field-error" id="taxError"></span></div>
+      </details>
+      <details class="sidebar-section" open>
+        <summary>Discount</summary>
+        <div class="field"><label for="discountType">Type</label><select id="discountType"><option value="percentage">Percentage (%)</option><option value="fixed">Fixed Amount</option></select></div>
+        <div class="field"><label for="discountValue">Value</label><input type="number" id="discountValue" min="0" step="0.01" placeholder="0" inputmode="decimal"><span class="field-error" id="discountError"></span></div>
+      </details>
+      <details class="sidebar-section" open>
+        <summary>Currency</summary>
+        <div class="field">
+          <label for="invCurrency">Currency</label>
+          <select id="invCurrency">
+            <option value="NGN">NGN — Nigerian Naira</option><option value="USD">USD — US Dollar</option><option value="GBP">GBP — British Pound</option><option value="EUR">EUR — Euro</option><option value="CAD">CAD — Canadian Dollar</option><option value="AUD">AUD — Australian Dollar</option><option value="GHS">GHS — Ghanaian Cedi</option><option value="KES">KES — Kenyan Shilling</option><option value="ZAR">ZAR — South African Rand</option>
+          </select>
+        </div>
+      </details>
+      <details class="sidebar-section hidden" id="paymentSidebarSection">
+        <summary>Payment</summary>
+        <div class="field"><label for="paymentBankName">Bank name</label><input type="text" id="paymentBankName" maxlength="100"></div>
+        <div class="field"><label for="paymentAccountName">Account name</label><input type="text" id="paymentAccountName" maxlength="100"></div>
+        <div class="field"><label for="paymentAccountNumber">Account number</label><input type="text" id="paymentAccountNumber" maxlength="40" inputmode="numeric"></div>
+        <div class="field"><label for="paymentInstructions">Instructions</label><textarea id="paymentInstructions" rows="2" maxlength="300"></textarea></div>
+        <div class="field"><label for="amountPaidInput">Amount paid</label><input type="number" id="amountPaidInput" min="0" step="0.01" inputmode="decimal"></div>
+        <label class="checkbox-field"><input type="checkbox" id="paymentShowToggle"><span>Show on document</span></label>
+      </details>
+      <details class="sidebar-section" open>
+        <summary>Options</summary>
+        <button type="button" class="btn btn--ghost btn--full" id="newInvoiceBtn">New Receipt</button>
+        <button type="button" class="btn btn--ghost btn--full" id="clearInvoiceBtn">Clear Receipt</button>
+      </details>
+    </aside>
+
+  </main>
+
+  <article class="seo-content no-print">
+    <h2>What is a receipt?</h2>
+    <p>A receipt is proof that a payment has already been made. Unlike an invoice, which requests payment, a receipt confirms that a transaction is complete — it records what was paid for, how much, when, and how the customer paid. Receipts are useful for customer records, refunds and exchanges, expense tracking, and simple bookkeeping.</p>
+
+    <h2>Receipt vs. invoice: what's the difference?</h2>
+    <p>An invoice is sent before payment, asking the customer to pay by a certain date. A receipt is issued after payment, confirming the money has been received. If you're still waiting to be paid, use the <a href="/invoice-generator/">invoice generator</a> instead — switch to this receipt generator once the payment has come in.</p>
+
+    <h2>How to create a receipt</h2>
+    <ol>
+      <li>Add your business details and, optionally, your logo.</li>
+      <li>Enter the customer's name and the transaction date.</li>
+      <li>List each item or service that was paid for, with quantity and price.</li>
+      <li>Select the payment method — cash, card, bank transfer, mobile money, or other.</li>
+      <li>Download the receipt as a PDF or print it for the customer.</li>
+    </ol>
+
+    <h2>What should a receipt include?</h2>
+    <ul>
+      <li>Business name and contact details</li>
+      <li>Customer name (optional for small cash sales, useful for larger transactions)</li>
+      <li>A unique receipt number and the date of payment</li>
+      <li>Items or services paid for, with quantity and price</li>
+      <li>The total amount paid and the payment method used</li>
+    </ul>
+
+    <h2>Frequently asked questions</h2>
+    <div class="faq-list">
+      <details class="faq-item"><summary>Is the receipt generator free?</summary><p>Yes, creating, previewing, printing and downloading receipts is completely free with no signup.</p></details>
+      <details class="faq-item"><summary>Can I choose how the customer paid?</summary><p>Yes — select Cash, Card, Bank Transfer, Mobile Money, or Other from the Payment Method field on the receipt.</p></details>
+      <details class="faq-item"><summary>Can I use this for a partial payment?</summary><p>A receipt records a completed payment. If a customer still owes a balance, an invoice — which tracks amount paid and balance due — is a better fit. Try the <a href="/invoice-generator/">invoice generator</a>.</p></details>
+    </div>
+
+    <h2>Related tools</h2>
+    <div class="related-tools">
+      <a class="related-tool-card" href="/invoice-generator/"><div class="related-tool-card__title">Create a free invoice</div><div class="related-tool-card__desc">Request payment before work is complete.</div></a>
+      <a class="related-tool-card" href="/quotation-generator/"><div class="related-tool-card__title">Create a professional quotation</div><div class="related-tool-card__desc">Send a price quote before work begins.</div></a>
+    </div>
+  </article>
+
+  <footer class="site-footer no-print">
+    <div class="site-footer__inner">
+      <div><h3>QuickInvoice</h3><p>Create professional invoices, receipts, quotations and estimates online — free, fast, and mobile-friendly.</p></div>
+      <div><h3>Tools</h3><ul><li><a href="/invoice-generator/">Invoice Generator</a></li><li><a href="/receipt-generator/">Receipt Generator</a></li><li><a href="/quotation-generator/">Quotation Generator</a></li><li><a href="/estimate-generator/">Estimate Generator</a></li></ul></div>
+      <div><h3>Resources</h3><ul><li><a href="/invoice-templates/">Invoice Templates</a></li><li><a href="/">Homepage</a></li></ul></div>
+      <div><h3>Company</h3><ul><li><a href="/#how-it-works">How it works</a></li></ul></div>
+    </div>
+    <div class="site-footer__bottom">© <span id="footerYear"></span> QuickInvoice. All rights reserved.</div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script>
+    window.QI_CONFIG = {
+      docType: "receipt",
+      numberPrefix: "REC",
+      storageKey: "quickinvoice_current_receipt_v3",
+      labels: { title: "Receipt", billTo: "Received From", secondaryDateTerm: "Terms", secondaryDate: "Due Date" },
+      defaults: { notes: "Thank you for your payment.", terms: "" },
+      showSecondaryDate: false,
+      showPaymentBlock: false,
+      showPaymentMethod: true,
+      showBalance: false,
+      noteBanner: ""
+    };
+    document.getElementById("footerYear").textContent = new Date().getFullYear();
+  </script>
+  <script src="/assets/js/document-engine.js"></script>
+</body>
+</html>
+
